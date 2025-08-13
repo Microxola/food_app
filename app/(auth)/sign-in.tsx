@@ -5,6 +5,7 @@ import CustomButton from "@/components/CustomButton";
 import CartButton from "@/components/CartButton";
 import {Link, router} from "expo-router";
 import {signIn} from "@/library/appwrite";
+import * as Sentry from "@sentry/react";
 
 const SignIn = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -23,6 +24,7 @@ const SignIn = () => {
             router.replace('/')
         }catch (error:any) {
             Alert.alert('Error', error.message);
+            Sentry.captureEvent(error);
         }finally {
             setIsSubmitting(false);
         }

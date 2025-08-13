@@ -4,6 +4,7 @@ import CustomInput from "@/components/CustomInput";
 import CustomButton from "@/components/CustomButton";
 import {Link, router} from "expo-router";
 import {createUser} from "@/library/appwrite";
+import * as Sentry from "@sentry/react";
 
 const SignUp = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -26,6 +27,7 @@ const SignUp = () => {
             router.replace('/')
         }catch (error:any) {
             Alert.alert('Error', error.message);
+            Sentry.captureEvent(error);
         }finally {
             setIsSubmitting(false);
         }
